@@ -20,6 +20,20 @@
 					</hbox>
 				</vbox>
 			</vbox>
+				<hbox id="steganosaurus-key-box">
+					<textbox id="steganosaurus-key" placeholder="Klucz wiadomości" flex="1" onkeyup=""/>
+				</hbox>
+				<vbox>
+					<radiogroup orient="vertical">
+						
+						<hbox>
+							<radio id="no-cipher" label="Bez szyfrowania" accesskey="B" selected="true"/>
+						</hbox>
+						<hbox>
+							<radio id="with-cipher" label="Z Szyfrowaniem" accesskey="Z" disabled="true"/>
+						</hbox>
+					</radiogroup>
+				</vbox>
 		</hbox>
 	</vbox>
 
