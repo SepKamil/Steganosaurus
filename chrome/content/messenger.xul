@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-<overlay id="stegoblockMessenger" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<overlay id="steganosaurusMessenger" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-    <script type="application/javascript" src="chrome://stegoblock/content/messenger.js"/>
+    <script type="application/javascript" src="chrome://steganosaurus/content/messenger.js"/>
 
     <toolbar id="header-view-toolbar">
         <toolbarbutton id="steganosaurus-read" label="Odczytaj UW" accesskey="u" oncommand="st.steganosaurusRead();"/>
