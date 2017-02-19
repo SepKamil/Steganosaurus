@@ -1,4 +1,6 @@
 # Dokumentacja pluginu Thunderbird „Steganosaurus”
+
+
 ### 1. Wymagania:
 Steganosaurus jest to plugin do programu Thunderbird. Zanim będzie możliwe użycie pluginu, należy spełnić poniższe wymagania:
   1. Zainstalować program Thunterbird (można pobrać tu [Thunderbird](https://www.mozilla.org/pl/thunderbird/))
@@ -14,10 +16,11 @@ Steganosaurus jest to plugin do programu Thunderbird. Zanim będzie możliwe uż
 
 ### 2. Działanie pluginu:
 
-![screen](https://s9.postimg.org/9jcs504q7/Diagram.png "Diagram pluginu Steganosaurus")
+![screen](https://s3.postimg.org/87jgma0b7/Diagram.png "Diagram pluginu Steganosaurus")
 
-Plugin Steganosaurus działa tak prawidłowo jak wyżej diagram. 
+Plugin Steganosaurus działa tak jak w diagramie. 
 Ogólnie plugin służy do ukrywania wiadomości tekstowych w wychodzących wiadomościach e-mail i jest również w zdolny do odczytania ukrytej treści z wiadomości przychodzącej.
 Potrafi zaszyfrować ukrytego wiadomości jak i rozszyfrować. Jeszcze posiada skrypt do zapisania ukrytego wiadomości w obrazku i skrypt do odczytywania ukrytego wiadomości z dowolnego obrazka.
-### 3. Użytkowanie:
 
+
+### 3. Użytkowanie:
