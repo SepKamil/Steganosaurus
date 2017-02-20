@@ -1,1 +1,1 @@
-pref('extensions.stegoblock.symbol', 'GOOG');
+pref("extensions.myaddon.image", "chrome://steganosaurus/content/default.jpg");
