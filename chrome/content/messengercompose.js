@@ -31,25 +31,22 @@ var st = {
 
             if (document.getElementById('yes-cipher').selected) {
 
-                st.ui.promptservice.alert(window, 'Błąd', 'Szyfrowanie!');
                 let password = document.getElementById('steganosaurus-key').value;
                 folded = '!!!' + AesCtr.encrypt(folded, password, 256);
             }
 
             if (document.getElementById('cipher-header').selected) {
 
-                st.ui.promptservice.alert(window, 'Błąd', 'Kodowanie do nagłówka.');
                 gMsgCompose.compFields.setHeader('X-St', folded);
             } else {
 
-                st.ui.promptservice.alert(window, 'Błąd', 'Kodowanie do załącznika.');
-                var attachment = Components.classes["@mozilla.org/messengercompose/attachment;1"].createInstance(Components.interfaces.nsIMsgAttachment);
-                attachment.url = "chrome://steganosaurus/content/lolcat.jpg";
-                // img = steg.encode(folded, "chrome://steganosaurus/content/lolcat.jpg")
-                // var attachment = Components.classes["@mozilla.org/messengercompose/attachment;1"].createInstance(Components.interfaces.nsIMsgAttachment);
+                st.ui.promptservice.alert(window, 'Uwaga', 'Kodowanie do załącznika nie jest w tym momencie zaimplementowane. Dodano zwykły obrazek bez ukrytej wiadomości.');
+                let attachment = Components.classes["@mozilla.org/messengercompose/attachment;1"].createInstance(Components.interfaces.nsIMsgAttachment);
+                attachment.url = "chrome://steganosaurus/content/default.jpg";
+                // img = steg.encode(folded, "chrome://steganosaurus/content/default.jpg")
                 // attachment.url = img;
                 attachment.name = "lolcat";
-                aMsgCompose.compFields.addAttachment(attachment);
+                gMsgCompose.compFields.addAttachment(attachment);
             }
 
             return true;
