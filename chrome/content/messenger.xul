@@ -1,10 +1,12 @@
 <?xml version="1.0"?>
 <overlay id="steganosaurusMessenger" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
+    <script type="application/javascript" src="chrome://steganosaurus/content/crypto/aes.js"/>
+    <script type="application/javascript" src="chrome://steganosaurus/content/crypto/aes-ctr.js"/>
     <script type="application/javascript" src="chrome://steganosaurus/content/messenger.js"/>
 
     <toolbar id="header-view-toolbar">
-        <toolbarbutton id="steganosaurus-read" label="Odczytaj UW" accesskey="u" oncommand="st.steganosaurusRead();"/>
+        <toolbarbutton id="steganosaurus-read" label="Odczytaj UW" disabled="true" oncommand="st.displayMessage();"/>
     </toolbar>
 
 </overlay>

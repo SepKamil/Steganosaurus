@@ -1,39 +1,29 @@
 <?xml version="1.0"?>
 <overlay id="steganosaurusMessengercompose" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
+    <script type="application/javascript" src="chrome://steganosaurus/content/crypto/aes.js"/>
+    <script type="application/javascript" src="chrome://steganosaurus/content/crypto/aes-ctr.js"/>
+    <script type="application/javascript" src="chrome://steganosaurus/content/crypto/img.js"/>
     <script type="application/javascript" src="chrome://steganosaurus/content/messengercompose.js"/>
 
     <vbox id="addresses-box">
-        <hbox id="steganosaurus-message-box">
-            <vbox style="width: 11.5em;" pack="end">
-                <label id="steganosaurus-message-label" value="Do ukrycia:" control="steganosaurus-content" style="text-align: right"/>
-                <label id="steganosaurus-message-length" flex="1" style="color: grey; font-style: italic; text-align: right"/>
-            </vbox>
+        <label id="steganosaurus-message-length" value="Pozostało 200 znaków" style="text-align: center"/>
+        <hbox id="steganosaurus-message-box" align="center">
 
-            <vbox flex="1">
-                <textbox multiline="true" id="steganosaurus-textbox" flex="1" placeholder="Wpisz ukrytą wiadomość"
-                    name="steganosaurus.message.body" minheight="50" onkeyup="st.ui.setRemainingCharCount()"/>
+            <textbox multiline="true" id="steganosaurus-textbox" flex="1" placeholder="Wpisz ukrytą wiadomość" name="steganosaurus.message.body" minheight="50" onkeyup="st.setRemainingCharCount()"/>
+            <textbox id="steganosaurus-key" placeholder="Klucz wiadomości" collapsed="true"/>
 
-                <vbox id="steganosaurus-disabled-box" collapsed="true" flex="1">
-                    <hbox>
-                        <label id="steganosaurus-disabled-label" flex="1" style="color: grey; font-style: italic"/>
-                    </hbox>
-                </vbox>
-            </vbox>
-                <hbox id="steganosaurus-key-box">
-                    <textbox id="steganosaurus-key" placeholder="Klucz wiadomości" flex="1" onkeyup=""/>
-                </hbox>
-                <vbox>
-                    <radiogroup orient="vertical">
+                <radiogroup orient="vertical">
+                        <label id="steganosaurus-encode" value="Szyfrować?" style="text-align: right"/>
+                        <radio id="yes-cipher" label="Tak"/>
+                        <radio id="no-cipher" label="Nie" selected="true"/>
+                </radiogroup>
 
-                        <hbox>
-                            <radio id="no-cipher" label="Bez szyfrowania" accesskey="B" selected="true"/>
-                        </hbox>
-                        <hbox>
-                            <radio id="with-cipher" label="Z Szyfrowaniem" accesskey="Z" disabled="true"/>
-                        </hbox>
-                    </radiogroup>
-                </vbox>
+                <radiogroup orient="vertical">
+                        <label id="steganosaurus-encode-where" value="Gdzie?" style="text-align: right"/>
+                        <radio id="cipher-header" label="W nagłówku" selected="true"/>
+                        <radio id="cipher-attach" label="W załączniku"/>
+                </radiogroup>
         </hbox>
     </vbox>
 

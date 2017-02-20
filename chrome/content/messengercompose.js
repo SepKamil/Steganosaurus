@@ -1,72 +1,62 @@
 var st = {
 
     ui: {
-        maxMessageLength: 400,
+
         promptservice: Components.classes['@mozilla.org/embedcomp/prompt-service;1'].getService(Components.interfaces.nsIPromptService),
 
-        elementMap: function (id) {
-
-            if (this.map === undefined)
-                this.map = {};
-
-            if (this.map[id] === undefined)
-                this.map[id] = document.getElementById(id);
-
-            return this.map[id];
-        },
     },
 
-    NotifyComposeFieldsReady: function () {
+    setRemainingCharCount: function () {
 
-        let label = this.elementMap('steganosaurus-message-length');
-        document.getElementById('steganosaurus-textbox').value = '';
-        label.value = 'Pozostało ' + this.maxMessageLength + ' znaków';
+        const maxMessageLength = 200;
+        let label = document.getElementById('steganosaurus-message-length');
+
+        if (label.style.display == 'none')
+            return true;
+
+        let textbox = document.getElementById('steganosaurus-textbox');
+
+        if (textbox.value.length > maxMessageLength)
+            textbox.value = textbox.value.substring(0, maxMessageLength);
+
+        let remaining = maxMessageLength - textbox.value.length;
+        label.value = (remaining === 1 ? ('Pozostał ' + remaining + ' znak') : ('Pozostało ' + remaining + ' znaków'));
     },
 
-    validateLength: function (event) {
-
-        let textboxValue = st.ui.elementMap('steganosaurus-textbox').value;
-        let remaining = st.ui.maxMessageLength - textboxValue.length;
-        let keyCode = event.keyCode;
-
-        if (remaining <= 0 && event.keyCode !== 8 && event.keyCode !== 46) {
-
-            event.preventDefault();
-            return false;
-        }
-        return true;
-    },
-
-
-    setRemainingCharCount: function (event) {
-
-        let label = this.elementMap('steganosaurus-message-length');
-        let textbox = this.elementMap('steganosaurus-textbox');
-
-        if (textbox.value.length > this.maxMessageLength)
-            textbox.value = textbox.value.substring(0, this.maxMessageLength);
-
-        let remaining = this.maxMessageLength - textbox.value.length;
-        label.value = (remaining === 1 ? ('Pozostał ' + remaining + ' znak') : ('Pozostało' + remaining + ' znaków'));
-    },
-
-    injectIntoMessageHeader: function (event) {
+    injectMessage: function (event) {
 
         try {
-
             let plaintext = document.getElementById('steganosaurus-textbox').value || '';
+            let folded = st.fold(plaintext);
 
-            //dłuższy tekst musi zostać zawinięty (limitem jest 78 znaków na linię)
-            let block = st.fold(plaintext);
+            if (document.getElementById('yes-cipher').selected) {
 
-            gMsgCompose.compFields.setHeader('X-HM', block);
+                st.ui.promptservice.alert(window, 'Błąd', 'Szyfrowanie!');
+                let password = document.getElementById('steganosaurus-key').value;
+                folded = '!!!' + AesCtr.encrypt(folded, password, 256);
+            }
+
+            if (document.getElementById('cipher-header').selected) {
+
+                st.ui.promptservice.alert(window, 'Błąd', 'Kodowanie do nagłówka.');
+                gMsgCompose.compFields.setHeader('X-St', folded);
+            } else {
+
+                st.ui.promptservice.alert(window, 'Błąd', 'Kodowanie do załącznika.');
+                var attachment = Components.classes["@mozilla.org/messengercompose/attachment;1"].createInstance(Components.interfaces.nsIMsgAttachment);
+                attachment.url = "chrome://steganosaurus/content/lolcat.jpg";
+                // img = steg.encode(folded, "chrome://steganosaurus/content/lolcat.jpg")
+                // var attachment = Components.classes["@mozilla.org/messengercompose/attachment;1"].createInstance(Components.interfaces.nsIMsgAttachment);
+                // attachment.url = img;
+                attachment.name = "lolcat";
+                aMsgCompose.compFields.addAttachment(attachment);
+            }
 
             return true;
 
         } catch (e) {
 
-            st.ui.promptservice.alert(window, 'Niespodziewany błąd', 'Coś nie wyszło. ' +
-                'Wiadomość nie została wysłana');
+            st.ui.promptservice.alert(window, 'Błąd', 'Coś nie wyszło: ' + e.message);
 
             event.preventDefault();
             return false;
@@ -91,8 +81,35 @@ var st = {
     }
 };
 
-window.addEventListener('compose-send-message', st.injectIntoMessageHeader, true);
+window.addEventListener('compose-send-message', st.injectMessage, true);
 
 window.addEventListener('compose-window-init', function () {
     gMsgCompose.RegisterStateListener(st.ui);
 }, true);
+
+window.addEventListener('load', function (event) {
+    let skey = document.getElementById('steganosaurus-key');
+    let ryes = document.getElementById('yes-cipher');
+    let rno = document.getElementById('no-cipher');
+
+    rno.addEventListener('RadioStateChange', function () {
+        skey.collapsed = false;
+    }, true);
+
+    ryes.addEventListener('RadioStateChange', function () {
+        skey.collapsed = true;
+    }, true);
+
+    let slength = document.getElementById('steganosaurus-message-length');
+    let cheader = document.getElementById('cipher-header');
+    let cattach = document.getElementById('cipher-attach');
+
+    cheader.addEventListener('RadioStateChange', function () {
+        slength.style.display = 'none';
+    }, true);
+
+    cattach.addEventListener('RadioStateChange', function () {
+        slength.style.display = 'inline';
+    }, true);
+
+}, false);
