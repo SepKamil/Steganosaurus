@@ -4,6 +4,10 @@
 Steganosaurus jest to plugin do programu Thunderbird. Służy on do ukrywania wiadomości tekstowych w  wiadomościach e-mail wychodzących i odczytywanie ukrytej treści w wiadomościach przychodzących. Umożliwia zapisywanie i odczytywanie ukrytej wiadomości w obrazku w załączniku. Pozwala także szyfrować wiadomości wychodzące i rozszyfrowywać wiadomości przychodzące.
 
 
+## Wymagania sprzętowe:
+Plugin Steganosaurus można zainstalować na każdym systemie i sprzęcie działając zgodnie z instrukcją instalacji.
+
+
 ## Instalacja i konfiguracja:
 1. Zainstalować program Thunterbird (można pobrać tu [Thunderbird](https://www.mozilla.org/pl/thunderbird/))
 2. Skonfigurować program Thunderbird by prawidłowo połączył się z kontem pocztowym, aby to zrobić należy wykonać kroki:
@@ -37,42 +41,44 @@ Steganosaurus jest to plugin do programu Thunderbird. Służy on do ukrywania wi
   > ![screen](https://s7.postimg.org/tcy20wfdn/image.png)
 
 
-## Wymagania sprzętowe:
-Plugin Steganosaurus można zainstalować na każdym systemie i sprzęcie działając zgodnie z instrukcją instalacji.
-
-
 ## Działanie pluginu Steganosaurus:
 ![screen](https://s28.postimg.org/agies0hb1/image.png)
 
-Tam, gdzie jest zaznaczone to jest nasz plugin Steganosaurus. Do ukrywania wiadomości mamy tylko 200 znaków, posiadamy jeszcze opcję do szyfrowania albo bez szyfrowania, jak i rownież opcję - gdzie mamy ukrywać wiadomości: w nagłówku albo w załączniku (tj. w obrazku). Pokażę Wam jak to działa plugin, zaczynając najpierw od wysłania ukrytych wiadomosci bez szyfrowania w nagłówku.
+W miejscu przeznaczonym na wiadomość ukrytą można wpisać maksymalnie 200 znaków. W tym miejscu następuje także wybór dodatkowych opcji: wiadomości z szyfrowaniem lub bez, ukrywanie wiadomości w nagłówku lub w załączniku.
 
-![screen](https://s14.postimg.org/89zb18g9d/image.png)
+1. Wysyłanie wiadomości bez szyfrowania w nagłówku:
 
-W miejscu zaznaczonym na zdjęciu wpisujemy wiadomość do ukrycia, dla przykładu napisałem Steganosaurus1
+  ![screen](https://s14.postimg.org/89zb18g9d/image.png)
 
-![screen](https://s17.postimg.org/mjl7aufkv/image.png)
+  Miejsce zaznaczone na zdjęciu to miejsce na wiadomość do ukrycia (przykładowo: Steganosaurus1).
 
-Po otrzymaniu takiej wiadomości, jak widzimy, że plugin wykrył nam, że w tych wiadomościach istnieje jeszcze ukryte wiadomości. Tam, gdzie jest zaznaczone "Odczytaj UW" wygląda na czarno (gdyby na szaro to oznacznałoby się, że nic nie ma ukrytych wiadomości). Po klikaniu "Odczytaj UW" pojawi się okno z ukrytą wiadomością.
+2. Odbieranie wiadomości ukrytej w nagłówku:
 
-![screen](https://s12.postimg.org/6mjaxjbu5/image.png)
+  ![screen](https://s17.postimg.org/mjl7aufkv/image.png)
 
-Okno pokazuję się nam tekst: Steganosaurus1. Teraz pokażę Wam jak zaszyfrować ukrytą wiadomości.
+  Plugin wykrywa, że w wiadomości ukryto informacje w nagłówku. Zakładka "Odczytaj UW" jest zapisana czarną czcionką - to znaczy, że mamy do czynienia z wiadomością ukrytą. W przeciwnym wypadku kolor czcionki byłby szary. Aby odczytać ukrytą informację należy kliknąć na zakładkę "Odczytaj UW", następnie pokaże się okno z ukrytą wiadomością.
 
-![screen](https://s24.postimg.org/kqtf0pt79/image.png)
+  ![screen](https://s12.postimg.org/6mjaxjbu5/image.png)
 
-Wybierając opcję zaszyfrowania, plugin każe nam wpisać klucza do zaszyfowania, więc wpiszemy klucza dla przykładu 12345. A do ukrywania wiadomości napisałem Hasłohasłohasło. Po wysłaniu takiej wiadomości, teraz sprawdzamy jak to odbierać ukryte wiadomości. Po otrzymaniu wiadomości klikamy znowu "Odczytaj UW".
+  Okno pokazuję się nam tekst: Steganosaurus1.
 
-![screen](https://s27.postimg.org/j8qi2k8xv/image.png)
+3. Szyfrowanie ukrytej wiadomości:
 
-Żeby otworzyć ukrytą wiadomość, wymaga klucza do rozszyfrowania. Po wpisaniu klucza 12345, pojawi się kolejny okno, oto wynik:
+  ![screen](https://s24.postimg.org/kqtf0pt79/image.png)
 
-![screen](https://s18.postimg.org/4vn52ja3d/image.png)
+  Wybierając opcję zaszyfrowania, konieczne jest wpisanie klucza (w przykładzie: 12345) oraz wiadomości do ukrycia. Następnie należy wysłać wiadomość jak normalny e-mail.
+  
+4. Odbieranie zaszyfrowanej wiadomości:
 
-Jak widzimy, że ukryte wiadomości z szyfrowaniem pokazuję się nam tekst: Haslohaslohaslo.
+  ![screen](https://s27.postimg.org/j8qi2k8xv/image.png)
 
+  Po otrzymaniu wiadomości należy kliknąć na zakładkę "Odczytaj UW". Następnie pojawi się okno, gdzie trzeba podać klucz do rozszyfrowania wiadomości (klucze wiadomości wysłanej i odebranej muszą się zgadzać). Kolejne okno umożliwia przeczytanie odszyfrowanej wiadomości.
 
-## Działanie kodu:
+  ![screen](https://s18.postimg.org/4vn52ja3d/image.png)
+
+  Jak widzimy, że ukryte wiadomości z szyfrowaniem pokazuję się nam tekst: Haslohaslohaslo.
 
 ![screen](https://s3.postimg.org/87jgma0b7/Diagram.png "Diagram pluginu Steganosaurus")
 
-Plugin Steganosaurus działa dokładnie tak jak w diagramie.
+## Działanie kodu:
+
