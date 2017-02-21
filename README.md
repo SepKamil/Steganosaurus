@@ -80,9 +80,7 @@ Jak widzimy, że ukryte wiadomości pokazuję się nam teksty: Haslohaslohaslo.
 
 
 
-![screen](https://s18.postimg.org/jyu3l36qx/image.png)
 
-Dla przykładu, jak widzimy, że jest na szaro - oznacza, że w tych wiadom
 
 ![screen](https://s3.postimg.org/87jgma0b7/Diagram.png "Diagram pluginu Steganosaurus")
 
