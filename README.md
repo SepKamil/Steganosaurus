@@ -1,7 +1,7 @@
 # Dokumentacja pluginu Thunderbird „Steganosaurus”
 
 ## Opis pluginu Steganosaurus:
-Steganosaurus jest to plugin do programu Thunderbird. Służy on do ukrywania wiadomości tekstowych w  wiadomościach e-mail wychodzących i odczytywanie ukrytej treści w wiadomościach przychodzących. Umożliwia zapisywanie i odczytywanie ukrytej wiadomości w obrazku w załączniku. Pozwala także szyfrować wiadomości wychodzące i rozszyfrowywać wiadomości przychodzące.
+Steganosaurus jest to plugin do programu Thunderbird. Służy on do ukrywania wiadomości tekstowych w wiadomościach e-mail wychodzących i odczytywanie ukrytej treści w wiadomościach przychodzących. Umożliwia zapisywanie i odczytywanie ukrytej wiadomości w obrazku w załączniku. Pozwala także szyfrować wiadomości wychodzące i rozszyfrowywać wiadomości przychodzące.
 
 
 ## Wymagania sprzętowe:
@@ -82,3 +82,18 @@ W miejscu przeznaczonym na wiadomość ukrytą można wpisać maksymalnie 200 zn
 
 ## Działanie kodu:
 
+#### Struktura plików
+
+![screen](https://s8.postimg.org/fbxgko411/image.png)
+
+#### Diagram klas
+![screen](https://s31.postimg.org/5etxukhe3/image.png)
+
+#### Opis funkcji:
+ - displayMessage()
+ 
+ Dzięki tej funkcji, pojawi się nowy okno i umożliwia odczytywanie ukrytej/odszyfrowanej treści w wiadomościach przychodzących po kliknięciu na zakładkę "Oczytaj UW" w wiadomości 
+
+ - setRemainingCharCount
+ 
+  Funkcja sprawdza ile zostało jeszcze do napisania znaków w miejscu przeznaczonym na wiadomość ukrytą, którą można wpisać maksymalnie 200 znaków. Na przykład: jeśli już są 50 znaków w polu przeznaczonym na wiadomość ukrytą, a ta funkcja pokażuje się, że zostało jeszcze 150 znaków.
