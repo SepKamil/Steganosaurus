@@ -136,19 +136,32 @@ Aes-Ctr dziedziczy po Aes. Pozwala na szyfrowanie danych i deszyfrowanie,które 
   ![screen](https://s22.postimg.org/ptlwezg0x/image.png)
   
   - decrypt(ciphertext, password, nBits) - metoda deszyfrująca z wykorzystaniem klucza szyfrującego, działa w lustrzany sposób do metody encrypt.
-
+  
+  ![screen](https://s14.postimg.org/rzjqrd3cv/image.png)
 
 Pozostałe funkcje wykorzystują komponent interfejsu Prompt.Service:
  - displayMessage() - funkcja umożliwia odczytanie wiadomości ukrytej lub odszyfrowywanie wiadomości zaszyfrowanej korzystając z AesCtr.decrypt, jest powiązana z metodą window.addEventListener('load', function (event), która sprawdza czy w wiadomości ukryto lub zaszyfrowano informacje; funkcja korzysta z komponentu deszyfrującego decodeURIComponent().
 
-Wywołanie funkcji to:
+Wywołanie funkcji to: 
 `$<toolbarbutton id="steganosaurus-read" label="Odczytaj UW" disabled="true" oncommand="st.displayMessage();"/>`
+
+![screen](https://s9.postimg.org/wm1n3aodr/image.png)
 
   - setRemainingCharCount() - funkcja sprawdza ile zostało jeszcze do napisania znaków w miejscu przeznaczonym na wiadomość ukrytą, gdzie można wpisać maksymalnie 200 znaków (zmienna stała maxMessageLength; textbox.value.length - zmienna określająca aktualną ilość znaków, jest odejmowana od zmiennej max.MessageLenght a różnica zapisywana jest w zmiennej remaining wyświetlanej następnie na ekranie)
 
-Typowe wywoływanie funkcji to:
+Wywołanie funkcji to: 
 `$<textbox multiline="true" id="steganosaurus-textbox" flex="1" placeholder="Wpisz ukrytą wiadomość" name="steganosaurus.message.body" minheight="50" onkeyup="st.setRemainingCharCount()"/>`
 
-  - fold()
+![screen](https://s23.postimg.org/kaml1o7hn/image.png)
+
+  - fold() - reguluje zawijanie tekstu w polu tekstowym wiadomości ukrytej przez warunek określający, że po ? znaków następuje przejście do nowej linii (?)
   
-Wywołanie funkcji to:
+Wywołanie funkcji to: 
+
+![screen](https://s17.postimg.org/6fckmdb33/image.png)
+
+  - injectMessage() - funkcja wczytująca pole tekstowe, potem ten fold (?). Metoda `window.addEventListener('load', function (event))` obsługuje radiobuttony zapisując ich wartości w zmiennych. Funkcja na podstawie tych wartości warunkuje sposób postępowania: szyfrowanie, ukrywanie w nagłówku, ukrywanie w załączniku, a także wychwytuje ewentualne błędy. 
+  
+Wywołanie funkcji to: 
+
+![screen](https://s4.postimg.org/bmgvmidod/image.png)
