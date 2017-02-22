@@ -90,10 +90,41 @@ W miejscu przeznaczonym na wiadomość ukrytą można wpisać maksymalnie 200 zn
 ![screen](https://s31.postimg.org/5etxukhe3/image.png)
 
 #### Opis funkcji:
- - displayMessage()
- 
- Dzięki tej funkcji, pojawi się nowy okno i umożliwia odczytywanie ukrytej/odszyfrowanej treści w wiadomościach przychodzących po kliknięciu na zakładkę "Oczytaj UW" w wiadomości 
+Wykorzystane zostały gotowe funkcje: Aes.js i Aes-ctr.js z biblioteki JS Cryptico.
 
- - setRemainingCharCount
+Pozostałe funkcje:
+
+  - displayMessage()
  
-  Funkcja sprawdza ile zostało jeszcze do napisania znaków w miejscu przeznaczonym na wiadomość ukrytą, którą można wpisać maksymalnie 200 znaków. Na przykład: jeśli już są 50 znaków w polu przeznaczonym na wiadomość ukrytą, a ta funkcja pokażuje się, że zostało jeszcze 150 znaków.
+Dzięki tej funkcji, pojawi się nowy okno i umożliwia odczytywanie ukrytej/odszyfrowanej treści w wiadomościach przychodzących po kliknięciu na zakładkę "Oczytaj UW".
+ 
+Parametry: brak
+
+Zawracana wartość: nie zwracamy wartości, ponieważ wyświetlamy tylko okienka
+  
+Typowe wywołanie funkcji to:
+```sh
+$<toolbarbutton id="steganosaurus-read" label="Odczytaj UW" disabled="true" oncommand="st.displayMessage();"/>
+```
+
+  - setRemainingCharCount()
+ 
+Funkcja sprawdza ile zostało jeszcze do napisania znaków w miejscu przeznaczonym na wiadomość ukrytą, którą można wpisać maksymalnie 200 znaków. Na przykład: jeśli już są 50 znaków w polu przeznaczonym na wiadomość ukrytą, a ta funkcja pokażuje się, że zostało jeszcze 150 znaków.
+
+Parametry: brak
+
+Zawracania wartość: nie zwracamy wartości, ponieważ wyświetlamy.
+
+Typowe wywoływanie funkcji to:
+```sh
+$<textbox multiline="true" id="steganosaurus-textbox" flex="1" placeholder="Wpisz ukrytą wiadomość" name="steganosaurus.message.body" minheight="50" onkeyup="st.setRemainingCharCount()"/>
+```
+
+  - fold()
+  
+  
+Parametry: brak
+
+Zawracania wartość: nie zwracamy wartości, ponieważ wyświetlamy.
+  
+Typowe wywoływanie funkcji to: 
