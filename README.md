@@ -60,7 +60,7 @@ W miejscu przeznaczonym na wiadomość ukrytą można wpisać maksymalnie 200 zn
 
   ![screen](https://s12.postimg.org/6mjaxjbu5/image.png)
 
-  Okno pokazuję się nam tekst: Steganosaurus1.
+  Okno pokazuje nam odkodowaną wiadomość.
 
 3. Szyfrowanie ukrytej wiadomości:
 
@@ -76,7 +76,7 @@ W miejscu przeznaczonym na wiadomość ukrytą można wpisać maksymalnie 200 zn
 
   ![screen](https://s18.postimg.org/4vn52ja3d/image.png)
 
-  Jak widzimy, że ukryte wiadomości z szyfrowaniem pokazuję się nam tekst: Haslohaslohaslo.
+#### Schemat działania
 
 ![screen](https://s3.postimg.org/87jgma0b7/Diagram.png "Diagram pluginu Steganosaurus")
 
@@ -90,25 +90,53 @@ W miejscu przeznaczonym na wiadomość ukrytą można wpisać maksymalnie 200 zn
 ![screen](https://s31.postimg.org/5etxukhe3/image.png)
 
 #### Opis funkcji:
-Wykorzystane zostały gotowe funkcje: Aes.js i Aes-ctr.js z biblioteki JS Cryptico.
+Wykorzystane zostały gotowe klasy: Aes.js i Aes-ctr.js z biblioteki JS Cryptico.
 
-Aes.js jest to funkcja szyfrująca na podstawie algorytmu Rijandael, wymagająca podania klucza szyfrującego state.
+Aes.js jest to klasa szyfrująca na podstawie algorytmu Rijandael, wymagająca podania klucza szyfrującego state.
   - cipher(input, w) - metoda generująca jeden podklucz początkowy, a następnie po kolejnym jednym podkluczu dla każdej rundy szyfrującej.
+  
+  ![screen](https://s4.postimg.org/uqct6yegd/image.png)
+  
   - keyExpansion(key) - metoda tworząca z głównego klucza algorytmu kolejne klucze (AES wymaga osobnego klucza 128-bitowego dla każdej rundy, plus jeden dodatkowy).
-    - Dodawanie nowego klucza rundy - każdy bajt macierzy stanu jest mieszany z blokiem rundy za pomocą operatora bitowego XOR.
+    - Dodawanie nowego klucza rundy - każdy bajt macierzy stanu jest mieszany z blokiem rundy za pomocą operatora bitowego XOR. `for (let t=0; t<4; t++) w[i][t] = w[i-Nk][t] ^ temp[t]*`
     
-    `for (let t=0; t<4; t++) w[i][t] = w[i-Nk][t] ^ temp[t]*`
+    ![screen](https://s21.postimg.org/llie3vxw7/image.png)
+    
   - subBytes(s, Nb) - metoda nieliniowej zamiany, gdzie każdy bajt jest zamieniany innym.
+  
+  ![screen](https://s10.postimg.org/5kye0bgtl/image.png)
+  
   - shiftRows(s, Nb) - metoda transpozycji, podczas której trzy ostatnie wiersze macierzy stanu są cyklicznie zmieniane określoną ilość razy.
+  
+  ![screen](https://s4.postimg.org/t33rz6vul/image.png)
+  
   - mixColumns(s, Nb) - Metoda mieszania kolumn macierzy. Polega na łączeniu czterech bajtów w każdej kolumnie.
-  - addRoundKey(state, w, rnd, Nb) - metoda dodawania klucza rundy
+  
+  ![screen](https://s2.postimg.org/7tw5d53yh/image.png)
+  
+  - addRoundKey(state, w, rnd, Nb) - metoda dodawania klucza rundy.
+  
+  ![screen](https://s28.postimg.org/ngfjrgbdp/image.png)
+  
   - subWord(w) - metoda przepisująca 4 ostatnie bajty aktualnego rozszerzonego klucza do tymczasowego wektora 4-bajtowego(w).
+  
+  ![screen](https://s17.postimg.org/xsiemumwv/image.png)
+  
   - rotWord(w) - metoda wykonująca rotację bajtów w wektorze o jedną pozycję w lewo. Skrajnie lewy bajt jest przepisywany na skrajnie prawą pozycję.
+  
+  ![screen](https://s15.postimg.org/7kfv6sby3/image.png)
+  
 W finałowej rundzie pomijana jest operacja mieszania kolumn.
  
 Aes-Ctr dziedziczy po Aes. Pozwala na szyfrowanie danych i deszyfrowanie,które może odbywać się z wykorzystaniem wielu wątków równocześnie.
   - encrypt(plaintext, password, nBits) - metoda szyfrująca wykorzystująca metodę cipher z klasy Aes do uzyskania klucza szyfrującego. Bity strumienia klucza tworzone są niezależnie od zawartości kolejno szyfrowanych bloków danych. W tym trybie szyfruje się kolejne wartości stale zwiększającego się licznika, zsumowane z dodatkową liczbą nazywaną nonce (nonce oznacza unikalny numer: number used once). Nonce pełni rolę wektora inicjującego. Wykorzystuje frameworki: utf8Encode(str), utf8Decode(str), base64Encode(str), base64Decode(str).
+  
+  ![screen](https://s28.postimg.org/bgsiggc6z/image.png)
+  
+  ![screen](https://s22.postimg.org/ptlwezg0x/image.png)
+  
   - decrypt(ciphertext, password, nBits) - metoda deszyfrująca z wykorzystaniem klucza szyfrującego, działa w lustrzany sposób do metody encrypt.
+
 
 Pozostałe funkcje wykorzystują komponent interfejsu Prompt.Service:
  - displayMessage() - funkcja umożliwia odczytanie wiadomości ukrytej lub odszyfrowywanie wiadomości zaszyfrowanej korzystając z AesCtr.decrypt, jest powiązana z metodą window.addEventListener('load', function (event), która sprawdza czy w wiadomości ukryto lub zaszyfrowano informacje; funkcja korzysta z komponentu deszyfrującego decodeURIComponent().
