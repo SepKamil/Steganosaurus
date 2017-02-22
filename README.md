@@ -90,11 +90,31 @@ W miejscu przeznaczonym na wiadomość ukrytą można wpisać maksymalnie 200 zn
 ![screen](https://s31.postimg.org/5etxukhe3/image.png)
 
 #### Opis funkcji:
+
 Wykorzystane zostały gotowe funkcje: Aes.js i Aes-ctr.js z biblioteki JS Cryptico.
+
+Aes.js - funkcja szyfrująca na podstawie algorytmu Rijandael, wymagająca podania klucza szyfrującego state 
+cipher(input, w) - metoda generująca jeden podklucz początkowy, a następnie po kolejnym jednym podkluczu dla każdej rundy szyfrującej.
+keyExpansion(key) - metoda tworząca z głównego klucza algorytmu kolejne klucze (AES wymaga osobnego klucza 128-bitowego dla każdej rundy, plus jeden dodatkowy).
+   Dodawanie nowego klucza rundy—każdy bajt macierzy stanu jest mieszany z blokiem rundy za pomocą operatora bitowego XOR.
+   for (let t=0; t<4; t++) w[i][t] = w[i-Nk][t] ^ temp[t]
+
+subBytes(s, Nb) — metoda nieliniowej zamiany, gdzie każdy bajt jest zamieniany innym.
+shiftRows(s, Nb) — metoda transpozycji, podczas której trzy ostatnie wiersze macierzy stanu są cyklicznie zmieniane określoną ilość razy.
+mixColumns(s, Nb) - Metoda mieszania kolumn macierzy. Polega na łączeniu czterech bajtów w każdej kolumnie.
+addRoundKey(state, w, rnd, Nb) - metoda dodawania klucza rundy
+subWord(w) - metoda przepisująca 4 ostatnie bajty aktualnego rozszerzonego klucza do tymczasowego wektora 4-bajtowego(w).
+rotWord(w) - metoda wykonująca rotację bajtów w wektorze o jedną pozycję w lewo. Skrajnie lewy bajt jest przepisywany na skrajnie prawą pozycję.
+ W finałowej rundzie pomijana jest operacja mieszania kolumn.
+ 
+Aes-Ctr dziedziczy po Aes. Pozwala na szyfrowanie danych i deszyfrowanie,które może odbywać się z wykorzystaniem wielu wątków równocześnie.
+encrypt(plaintext, password, nBits) - metoda szyfrująca wykorzystująca metodę cipher z klasy Aes do uzyskania klucza szyfrującego. Bity strumienia klucza tworzone są niezależnie od zawartości kolejno szyfrowanych bloków danych. W tym trybie szyfruje się kolejne wartości stale zwiększającego się licznika, zsumowane z dodatkową liczbą nazywaną nonce (nonce oznacza unikalny numer: number used once). Nonce pełni rolę wektora inicjującego.Wykorzystuje frameworki: utf8Encode(str), utf8Decode(str), base64Encode(str), base64Decode(str).
+decrypt(ciphertext, password, nBits) - metoda deszyfrująca z wykorzystaniem klucza szyfrującego, działa w lustrzany sposób do metody encrypt.
 
 Pozostałe funkcje:
 
-  - displayMessage()
+ - displayMessage()- funkcja wykrywająca czy w wiadomości e-mail jest ukryta lub zaszyfrowana wiadomość. Umożliwia przypadki:
+                     odczytanie wiadomości ukrytej , odszyfrowywanie wiadomości zaszyfrowanej korzystając  z AesCtr.decrypt,
  
 Dzięki tej funkcji, pojawi się nowy okno i umożliwia odczytywanie ukrytej/odszyfrowanej treści w wiadomościach przychodzących po kliknięciu na zakładkę "Oczytaj UW".
  
