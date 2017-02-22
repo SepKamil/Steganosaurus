@@ -84,7 +84,7 @@ W miejscu przeznaczonym na wiadomość ukrytą można wpisać maksymalnie 200 zn
 
 #### Struktura plików
 
-![screen](https://s8.postimg.org/fbxgko411/image.png)
+![screen](https://s12.postimg.org/ouihasm65/image.png)
 
 #### Diagram klas
 ![screen](https://s31.postimg.org/5etxukhe3/image.png)
@@ -154,14 +154,39 @@ Wywołanie funkcji to:
 
 ![screen](https://s23.postimg.org/kaml1o7hn/image.png)
 
-  - fold() - reguluje zawijanie tekstu w polu tekstowym wiadomości ukrytej przez warunek określający, że po ? znaków następuje przejście do nowej linii (?)
-  
-Wywołanie funkcji to: 
+  - fold() - funkcja stwarzająca zawijanie tekstu po 63 znakach w jednej linii.
 
 ![screen](https://s17.postimg.org/6fckmdb33/image.png)
 
-  - injectMessage() - funkcja wczytująca pole tekstowe, potem ten fold (?). Metoda `window.addEventListener('load', function (event))` obsługuje radiobuttony zapisując ich wartości w zmiennych. Funkcja na podstawie tych wartości warunkuje sposób postępowania: szyfrowanie, ukrywanie w nagłówku, ukrywanie w załączniku, a także wychwytuje ewentualne błędy. 
-  
-Wywołanie funkcji to: 
+  - injectMessage() - funkcja wczytująca wartości z pola tekstowego, następnie wywołuje funkcję fold i zapisuje wartości w zmiennej folded. `Metoda window.addEventListener('load', function (event))` obsługuje radiobuttony zapisując ich wartości w zmiennych i wpływając na interfejs. Funkcja na podstawie tych wartości warunkuje sposób postępowania: szyfrowanie, ukrywanie w nagłówku, ukrywanie w załączniku, a także wychwytuje ewentualne błędy.
 
 ![screen](https://s4.postimg.org/bmgvmidod/image.png)
+
+## Testy
+
+  1) UW bez szyfrowania
+  
+  ![screen](https://s15.postimg.org/51155fdm3/image.png)
+  
+  ![screen](https://s17.postimg.org/kws89oekf/image.png)
+  
+  2) UW z szyfrowaniem
+  
+  ![screen](https://s31.postimg.org/59sh9qrwr/image.png)
+  
+  ![screen](https://s3.postimg.org/b5qmr1j0j/image.png)
+  
+  ![screen](https://s13.postimg.org/sq5q03p6v/image.png)
+  
+  ![screen](https://s7.postimg.org/4h7c509bf/image.png)
+  
+  ![screen](https://s11.postimg.org/46kulz6sz/image.png)
+  
+  3) UW po wysłaniu aż 120 znaków
+  
+  ![screen](https://s9.postimg.org/t2f3owlv3/image.png)
+  
+  ![screen](https://s7.postimg.org/4u27zopl7/image.png)
+  
+  Jak tu widać działanie funkcji fold.
+ 
